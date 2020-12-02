@@ -72,7 +72,7 @@
 
                   <v-img
                     height="250"
-                    :src="store.img"
+                    :src="`data:image/png;base64,${store.img}`"
                     v-if="data_detect(store.img)"
                   ></v-img>
 
@@ -107,11 +107,10 @@
                     <v-btn
                       color="deep-purple lighten-2"
                       outlined
-                      :href="store.map"
+                      :href="map_url(store.map, store.title)"
                       target="_blank"
-                      v-if="data_detect(store.map)"
                     >
-                      地圖
+                      地圖搜尋
                     </v-btn>
                   </v-card-actions>
                 </v-card>
@@ -175,6 +174,10 @@ export default {
     data_detect(input) {
       if (input == "") return false;
       else return true;
+    },
+    map_url(input, place) {
+      if (input == "") return "https://www.google.com.tw/maps/search/" + place;
+      else return input;
     },
   },
   created: function () {
